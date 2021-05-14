@@ -6,13 +6,13 @@ include Rack::Test::Methods
 class TheprogramTest <  Minitest::Test
   def test_file_upload
     file_path = fixture_path('test.zip')
-    result = post "/files", {
+    response = post "/files", {
       file: {
         title: 'My first zip file',
         file: Rack::Test::UploadedFile.new(file_path, "application/zip", true)
       }
     }
-    assert_equal 201, result.status
+    assert_equal 201, response.status
   end
 
   private
