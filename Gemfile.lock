@@ -124,6 +124,7 @@ DEPENDENCIES
   rack-test
   rake
   rubocop (= 0.73)
+  sequel
   simplecov (~> 0.21.2)
 
 BUNDLED WITH

@@ -1,18 +1,26 @@
 require_relative '../test_helper'
 require 'app.rb'
+require 'json'
 
 include Rack::Test::Methods
 
-class TheprogramTest <  Minitest::Test
-  def test_file_upload
-    file_path = fixture_path('test.zip')
-    response = post "/files", {
+class UploadFileTest <  Minitest::Test
+
+  def setup
+    @file_path = fixture_path('test.zip')
+    @title = 'My first zip file'
+    @response = post "/files", {
       file: {
-        title: 'My first zip file',
-        file: Rack::Test::UploadedFile.new(file_path, "application/zip", true)
+        title: @title,
+        file: Rack::Test::UploadedFile.new(@file_path, "application/zip", true)
       }
     }
-    assert_equal 201, response.status
+  end
+
+  def test_file_upload
+    assert_equal 201, @response.status
+    assert_equal @title, JSON.parse(@response.body)['title']
+    puts @response.body
   end
 
   private
