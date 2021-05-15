@@ -10,10 +10,8 @@ class UploadFileTest <  Minitest::Test
     @file_path = fixture_path('test.zip')
     @title = 'My first zip file'
     @response = post "/files", {
-      file: {
-        title: @title,
-        file: Rack::Test::UploadedFile.new(@file_path, "application/zip", true)
-      }
+      title: @title,
+      file: Rack::Test::UploadedFile.new(@file_path, "application/zip", true)
     }
   end
 

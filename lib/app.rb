@@ -10,11 +10,11 @@ module API
     resource :files do
       post do 
         uploader = AssetUploader.new
-        uploader.store!(params[:file][:file][:tempfile])
+        uploader.store!(params[:file][:tempfile])
         table = DB[:assets]
         asset_hash = {
-          title: params.dig(:file, :title),
-          file: params.dig(:file, :file).to_s
+          title: params.dig(:title),
+          file: params.dig(:file).to_s
         }
         table.insert(asset_hash)
         asset_hash
